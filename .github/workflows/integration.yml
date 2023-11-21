@@ -1,7 +1,6 @@
 name: Build Next.js web application
 
-on:
-  push:
+on: push
   
 jobs:
   release-project:
@@ -18,7 +17,15 @@ jobs:
       - name: Archive site content
         uses: thedoctor0/zip-release@master
         with:
-            filename: site.zip
+          filename: site.zip
+      - name: Create Github release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          tag_name: ${{github.run_number}}
+          release_name: Release${{github.run_number}}
+  
   build-project:
     name: Build Project
     runs-on: ubuntu-latest
@@ -32,5 +39,5 @@ jobs:
       - name: Upload static site content
         uses: actions/upload-artifact@v3
         with:
-            name: static-site
-            path: .next/
+          name: static-site
+          path: .next/
