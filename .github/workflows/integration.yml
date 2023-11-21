@@ -12,7 +12,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: static-site
-      - name: View content of artifact
+      - name: View content of Artifact
         run: ls -R
       - name: Archive site content
         uses: thedoctor0/zip-release@master
