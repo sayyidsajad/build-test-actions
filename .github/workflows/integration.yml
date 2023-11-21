@@ -1,7 +1,6 @@
 name: Build Next.js web application
 
-on:
-  push:
+on: push
   
 jobs:
   release-project:
@@ -21,12 +20,12 @@ jobs:
           filename: site.zip
       - name: Create Github release
         id: create_new_release
-        uses: actions/create-release@v1.1.4
-        env:
-          GITHUB_TOKEN: ${{secrets.PAT_TOKEN}}
+        uses: actions/create-release@v1
         with:
           tag_name: ${{github.run_number}}
           release_name: Release${{github.run_number}}
+        env:
+          GITHUB_TOKEN: ${{secrets.PAT_TOKEN}}
       - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
